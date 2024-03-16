@@ -1,0 +1,15 @@
+import RPi.GPIO as GPIO
+import board
+
+
+MAIN_5V_PIN = 2
+MAIN_3V_PIN = 1
+
+MAIN_GND_PIN = 9
+
+
+#GPIO PINS
+AM2301_DATA_PIN = board.D22
+
+DS18B20_DATA_PIN = board.D17
+
