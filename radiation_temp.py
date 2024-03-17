@@ -1,19 +1,10 @@
 # DS18B20 Temperature sensor
 
-import time
 import os
 import glob
 
-def find_ds18b20():
-    os.system('modprobe w1-gpio')
-    os.system('modprobe w1-therm')
-    base_dir = '/sys/bus/w1/devices/'
-    device_folder = glob.glob(base_dir + '28*')[0]
-    device_file = device_folder + '/w1_slave'
-    return device_file
-
-def read_temperature_celcius(sensorName):
-    f = open(sensorName, 'r')
+def read_radiation_temperature(sensor_name):
+    f = open(sensor_name, 'r')
     lines = f.readlines()
     f.close()
 
@@ -30,13 +21,11 @@ def read_temperature_celcius(sensorName):
 
     return temp_c
 
-sensor_name = find_ds18b20()
+def find_ds18b20():
+    os.system('modprobe w1-gpio')
+    os.system('modprobe w1-therm')
+    base_dir = '/sys/bus/w1/devices/'
+    device_folder = glob.glob(base_dir + '28*')[0]
+    device_file = device_folder + '/w1_slave'
+    return device_file
 
-while True:
-    temp_c = read_temperature_celcius(sensor_name)
-
-    if temp_c == None:
-        time.sleep(1)
-    else:
-        print("Temperature is %.1f C" % (temp_c))
-        time.sleep(5)

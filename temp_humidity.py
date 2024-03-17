@@ -5,23 +5,15 @@ from gpio_pinout import AM2301_DATA_PIN
 import time
 
 
-dht_device = adafruit_dht.DHT22(AM2301_DATA_PIN, use_pulseio=False)
-
-
-while True:
+def get_temp_and_humidity_readings():
+    dht_device = adafruit_dht.DHT22(AM2301_DATA_PIN, use_pulseio=False)
     try:
         temp, humidity = 0, 0
         temp = dht_device.temperature
         humidity = dht_device.humidity
-
-        print (f'Temp is : {temp} C, Humidity is: {humidity} ')
-        time.sleep(3)
-    except RuntimeError as error:
-        print(error.args[0])
-        time.sleep(2)
-        continue
+        return temp, humidity
     except Exception as error:
+        print(error.args[0])
+        return None
+    finally:
         dht_device.exit()
-        raise error
-    
-    time.sleep(5)
