@@ -1,11 +1,22 @@
 from temp_humidity import get_temp_and_humidity_readings
-from radiation_temp import find_ds18b20, read_radiation_temperature
+from globe_temp import find_ds18b20, read_globe_temperature
 from air_quality import read_air_quality_sensor
-import time
+from gps import get_gps_data
+from analog_sensors import get_wind_speed
 
 
 def main():
     
+    gps_latitude, gps_longitude, gps_altitude, gps_altitude_units, gps_datetime = None, None, None, None, None
+    while gps_latitude == None or gps_longitude == None or gps_altitude == None or gps_datetime == None:
+        try:
+            gps_latitude, gps_longitude, gps_altitude, gps_altitude_units, gps_datetime = get_gps_data()
+        except Exception as error:
+            print(error.args[0])
+            continue
+    
+    print (f'Reading started at: {gps_latitude}, {gps_longitude}, {gps_altitude}{gps_altitude_units}, {gps_datetime}')
+
     temp, humidity = None, None
     while temp == None or humidity == None:
         try:
@@ -16,16 +27,26 @@ def main():
     
     print (f'Temp is : {temp} C, Humidity is: {humidity} ')
 
-    radiation_temp = None
-    while radiation_temp == None:
+    wind_speed_m_s = None
+    while wind_speed_m_s == None:
         try:
-            radiation_temp_sensor_name = find_ds18b20()
-            radiation_temp = read_radiation_temperature(radiation_temp_sensor_name)
+            wind_speed_m_s = get_wind_speed()
+        except Exception as error:
+            print(error.args[0])
+            continue
+    
+    print (f'Wind speed is : {wind_speed_m_s} m/s')
+
+    globe_temp = None
+    while globe_temp == None:
+        try:
+            globe_temp_sensor_name = find_ds18b20()
+            globe_temp = read_globe_temperature(globe_temp_sensor_name)
         except Exception as error: 
             print(error.args[0])
             continue
     
-    print (f'Radiation temperature is : {radiation_temp} C')
+    print (f'Globe temperature is : {globe_temp} C')
 
     pm25, pm10 = None, None
 

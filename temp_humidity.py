@@ -14,6 +14,6 @@ def get_temp_and_humidity_readings():
         return temp, humidity
     except Exception as error:
         print(error.args[0])
-        return None
+        return None, None
     finally:
         dht_device.exit()

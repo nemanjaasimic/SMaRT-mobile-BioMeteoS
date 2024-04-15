@@ -1,9 +1,9 @@
-# DS18B20 Temperature sensor
+# DS18B20 Temperature sensor - Globe temp
 
 import os
 import glob
 
-def read_radiation_temperature(sensor_name):
+def read_globe_temperature(sensor_name):
     f = open(sensor_name, 'r')
     lines = f.readlines()
     f.close()
