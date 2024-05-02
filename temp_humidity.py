@@ -6,14 +6,22 @@ import time
 
 
 def get_temp_and_humidity_readings():
-    dht_device = adafruit_dht.DHT22(AM2301_DATA_PIN, use_pulseio=False)
     try:
+        dht_device = adafruit_dht.DHT22(AM2301_DATA_PIN, use_pulseio=False)
         temp, humidity = 0, 0
+        get_measures(dht_device)
         temp = dht_device.temperature
         humidity = dht_device.humidity
+        dht_device.exit()
         return temp, humidity
     except Exception as error:
-        print(error.args[0])
-        return None, None
-    finally:
-        dht_device.exit()
+        raise error
+
+
+def get_measures(dht_device):
+    while dht_device.temperature == None or dht_device.humidity == None:
+        try:
+            dht_device.measure()
+        except Exception as error:
+            print("DHT Device not ready yet")
+            continue

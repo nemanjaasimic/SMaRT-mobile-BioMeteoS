@@ -1,5 +1,7 @@
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_MCP3008
+import RPi.GPIO as GPIO
+import gpio_pinout
 import time
 
 SPI_PORT   = 0
@@ -21,3 +23,25 @@ def get_wind_speed():
     wind_speed = round(wind_speed, 3)
 
     return wind_speed
+
+ 
+def get_uv_intensity():
+    GPIO.output(gpio_pinout.ML_8511_UV_POWER_PIN, True)
+    time.sleep(1)
+
+    uv_intensity = [0]*5
+    for i in range(5):
+        uv_intensity_measured = mcp.read_adc(1)
+        # 0-1023 = 0-3.3v
+        # 310 = 1V --> min uv of 0 (mW/cm^2)
+        # 885 = 2.85V --> max uv of 15 (mW/cm^2)
+        # scaling real_value = measured_value - 310 which means offset is [0-575]
+        uv_intensity[i] = (uv_intensity_measured - 310) / 575 * 15
+        time.sleep(0.5)
+
+
+    uv_intensity = round(sum(uv_intensity) / len(uv_intensity), 1)
+
+    GPIO.output(gpio_pinout.ML_8511_UV_POWER_PIN, False)
+
+    return uv_intensity

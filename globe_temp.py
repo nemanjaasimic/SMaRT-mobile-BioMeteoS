@@ -17,7 +17,7 @@ def read_globe_temperature(sensor_name):
         return None
 
     temp_string = lines[1][temperature_start_pos+2:]
-    temp_c = float(temp_string) / 1000.0
+    temp_c = round(float(temp_string) / 1000.0, 2)
 
     return temp_c
 
