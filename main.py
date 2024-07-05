@@ -82,7 +82,7 @@ def start_measuring(filename, iteration_pause=90):
         print_measured_values(gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, limited_wind_speed_m_s, pm25, pm10, uv_intensity)
 
         # field names 
-        header = ['Date', 'Time', 'Altitude (m)', 'Longitude', 'Latitude', 't (°C)', 'RH (%)', 'Tg(°C)', 'v (m/s)', 'v [0,5-17] (m/s)' 'PM (2.5) ppm', 'PM (10) ppm', 'UV Intensity (mW/cm^2)'] 
+        header = ['Date', 'Time', 'Altitude (m)', 'Longitude', 'Latitude', 't (°C)', 'RH (%)', 'Tg(°C)', 'v (m/s)', 'v [0.5-17] (m/s)' 'PM (2.5) ppm', 'PM (10) ppm', 'UV Intensity (mW/cm^2)'] 
         write_header = False
         try:
             with open(filename, 'r') as csv_file:
