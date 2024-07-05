@@ -82,7 +82,7 @@ def start_measuring(filename, iteration_pause=90):
         print_measured_values(gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, limited_wind_speed_m_s, pm25, pm10, uv_intensity)
 
         # field names 
-        header = ['Date', 'Time', 'Altitude (m)', 'Longitude', 'Latitude', 't (°C)', 'RH (%)', 'Tg(°C)', 'v (m/s)', 'v [0.5-17] (m/s)' 'PM (2.5) ppm', 'PM (10) ppm', 'UV Intensity (mW/cm^2)'] 
+        header = ['Date', 'Time', 'Altitude (m)', 'Longitude', 'Latitude', 't (°C)', 'RH (%)', 'Tg(°C)', 'v (m/s)', 'v [0.5-17] (m/s)', 'PM (2.5) ppm', 'PM (10) ppm', 'UV B (mW/cm^2)'] 
         write_header = False
         try:
             with open(filename, 'r') as csv_file:
@@ -111,21 +111,21 @@ def start_measuring(filename, iteration_pause=90):
 
 
 def print_measured_values(gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, limited_wind_speed_m_s, pm25, pm10, uv_intensity):
-    print('_______________________________________________________________________________________________________________________')
+    print('___________________________________________________________________________________________')
     print(f'Reading started at: {gps_latitude}, {gps_longitude}, {gps_altitude}{gps_altitude_units}, {gps_datetime}')
     print(f'Temp is : {temp} C, Humidity is: {humidity} %RH')
     print(f'Wind speed is : {wind_speed_m_s} m/s | Limited wind speed is: {limited_wind_speed_m_s} m/s')
     print(f'UV Intensity is : {uv_intensity} mW/cm^2')
     print(f'Globe temperature is : {globe_temp} C')
     print(f'PM2.5 {pm25} ug/m^3 | PM10 {pm10} ug/m^3')
-    print('_______________________________________________________________________________________________________________________')
+    print('___________________________________________________________________________________________')
 
 
 
 def debug():
     gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, limited_wind_speed_m_s, pm25, pm10, uv_intensity = fetch_values()
     print("Measurements completed.\nPlease take a look at the results below:")
-    print_measured_values(gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, get_limited_wind_speed(wind_speed_m_s), pm25, pm10, uv_intensity)
+    print_measured_values(gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, limited_wind_speed_m_s, pm25, pm10, uv_intensity)
 
 
 if __name__ == "__main__":
