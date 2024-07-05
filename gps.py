@@ -32,7 +32,7 @@ def get_gps_data():
 		return to_str_deg_min_sec(gps_latitude), to_str_deg_min_sec(gps_longitude), gps_altitude, gps_altitude_unit, gps_datetime_belgrade
 	else:
 		neo_6m_gps_serial.close()
-		return None, None, None, None, None
+		raise Exception('No GPS data found. Please wait for GPS to connect to satellites.')
 
 
 def get_gps_message(gps_serial, message_type='$GPRMC'):
