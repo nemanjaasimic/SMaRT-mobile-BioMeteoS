@@ -40,8 +40,11 @@ def get_uv_intensity():
         time.sleep(0.5)
 
 
-    uv_intensity = round(sum(uv_intensity) / len(uv_intensity), 1)
+    uv_intensity = round(sum(uv_intensity) / len(uv_intensity), 2)
 
     GPIO.output(gpio_pinout.ML_8511_UV_POWER_PIN, False)
+
+    if uv_intensity < 0:
+        uv_intensity = 0
 
     return uv_intensity
