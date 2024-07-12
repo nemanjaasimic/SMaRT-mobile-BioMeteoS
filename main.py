@@ -9,6 +9,17 @@ import time
 import os
 
 
+def fetch_current_date_time_from_gps():
+    gps_latitude, gps_longitude, gps_altitude, gps_altitude_units, gps_datetime = None, None, None, None, None
+    while gps_latitude == None or gps_longitude == None or gps_altitude == None or gps_datetime == None:
+        try:
+            gps_latitude, gps_longitude, gps_altitude, gps_altitude_units, gps_datetime = get_gps_data()
+            return gps_datetime
+        except Exception as error:
+            print(f'Failed to retrieve GPS data. Message: {error.args[0]}. Trying again!')
+            continue
+
+
 def fetch_values():
     gps_latitude, gps_longitude, gps_altitude, gps_altitude_units, gps_datetime = None, None, None, None, None
     while gps_latitude == None or gps_longitude == None or gps_altitude == None or gps_datetime == None:
@@ -136,7 +147,10 @@ if __name__ == "__main__":
     print("First measurement completed...System will pause for 5 seconds and then continue regular interval measurements.\n")  
     time.sleep(5)
     
-    filename = f'/home/weatherstation/Desktop/measured-data/measurement_{datetime.today().date()}.csv'
+    print("Getting system time from GPS...\n")
+    current_date_time = fetch_current_date_time_from_gps()
+
+    filename = f'/home/weatherstation/Desktop/measured-data/measurement_{current_date_time.date()}.csv'
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
     start_measuring(filename, DEFAULT_ITERATION_PAUSE_SECONDS)
