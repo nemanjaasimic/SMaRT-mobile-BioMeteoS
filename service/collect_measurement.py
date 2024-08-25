@@ -1,12 +1,12 @@
-from flask import current_app
 from model.measurement import db, Measurement
+from scheduler import scheduler
 
 from datetime import datetime
 import random
 import uuid
 
 def generate_measurement(location_id):
-    with current_app.app_context():
+    with scheduler.app.app_context():
         # gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, limited_wind_speed_m_s, pm25, pm10, uv_intensity = data_fetcher.fetch_values()
         
         # measurement = Measurement(

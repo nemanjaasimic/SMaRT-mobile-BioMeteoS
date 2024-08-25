@@ -16,7 +16,9 @@ def create_app():
 
     db.init_app(app)
 
+    scheduler.init_app(app)
     scheduler.start()
+    
     app.register_blueprint(measurement_api.measurement_bp)
     app.register_blueprint(location_api.location_bp)
     print("Setup endpoints.")

@@ -21,11 +21,10 @@ def start_scheduler():
     # Check if the scheduler job is already running
     if not scheduler.get_job('measurement_job'):
         scheduler.add_job(
-            generate_measurement,
-            IntervalTrigger(seconds=interval_in_s),
             id='measurement_job',
-            name='Generate measurement every 1.5 minutes',
-            replace_existing=True,
+            func=generate_measurement,
+            trigger='interval',
+            seconds=interval_in_s,
             kwargs={
                 'location_id': uuid.UUID(location_id)} 
         )

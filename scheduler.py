@@ -1,3 +1,3 @@
-from apscheduler.schedulers.background import BackgroundScheduler
+from flask_apscheduler import APScheduler
 
-scheduler = BackgroundScheduler()
+scheduler = APScheduler()
