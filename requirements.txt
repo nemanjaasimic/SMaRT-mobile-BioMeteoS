@@ -11,6 +11,3 @@ adafruit-mcp3008 == 1.0.2
 smbus2 == 0.4.3
 numpy == 2.0.0
 
-
-Flask == 3.0.3
-Flask-SQLAlchemy == 3.1.1
