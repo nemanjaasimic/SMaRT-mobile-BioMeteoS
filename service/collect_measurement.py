@@ -9,7 +9,7 @@ import uuid
 def generate_measurement(location_id):
     with scheduler.app.app_context():
         gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, limited_wind_speed_m_s, pm25, pm10, uv_intensity = fetch_values()
-        print("measuring obtained ")
+        print("Measurement obtained")
         measurement = Measurement(
             date=gps_datetime.date(),
             time=gps_datetime.time().strftime('%H:%M:%S'),
@@ -27,7 +27,7 @@ def generate_measurement(location_id):
             location_id=location_id
         )
 
-        print(measurement)
+        print("Saving measurement to database")
 
         db.session.add(measurement)
         db.session.commit()
