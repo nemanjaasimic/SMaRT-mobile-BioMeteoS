@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from model.measurement import Measurement
+from model.location import Location
 from apscheduler.triggers.interval import IntervalTrigger
 from service.collect_measurement import generate_measurement
 from scheduler import scheduler
@@ -9,16 +10,21 @@ measurement_bp = Blueprint('measurement', __name__, url_prefix='/measurements')
 
 @measurement_bp.route("/start", methods=["POST"])
 def start_scheduler():
-    location_id = request.json.get('location_id')
-    interval_in_s = request.json.get('interval_in_s')
+    data = request.get_json()
+    location_id = data['location_id']
+    interval_in_s = data['interval_in_s']
 
     if not location_id:
         return jsonify({"message": "location_id is required"}), 400
     
+    existing_location = Location.query.filter_by(id=location_id).first()
+    if existing_location is None:
+        return jsonify({'error': 'This location does not exist.'}), 400
+    
     if not interval_in_s:
         interval_in_s = 90
 
-    # Check if the scheduler job is already running
+    print("Trying to schedule measuring job...")
     if not scheduler.get_job('measurement_job'):
         scheduler.add_job(
             id='measurement_job',
@@ -28,6 +34,7 @@ def start_scheduler():
             kwargs={
                 'location_id': uuid.UUID(location_id)} 
         )
+        print(f"Measuring job for location id: {location_id} scheduled on {interval_in_s}s interval")
         return jsonify({"message": "Measuring started"}), 200
     else:
         return jsonify({"message": "Measuring is already running"}), 400
@@ -37,6 +44,7 @@ def start_scheduler():
 def stop_scheduler():
     job = scheduler.get_job('measurement_job')
     if job:
+        print(f"Measuring job stopped")
         scheduler.remove_job('measurement_job')
         return jsonify({"message": "Measuring stopped"}), 200
     else:

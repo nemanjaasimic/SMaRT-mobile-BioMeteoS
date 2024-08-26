@@ -9,15 +9,14 @@ location_bp = Blueprint('location', __name__, url_prefix='/locations')
 def get_locations():
     locations = Location.query.all()
 
+    print("Successfully fetched all locations")
     locations_list = [{'id': location.id, 'name': location.name} for location in locations]
 
-    return jsonify(locations_list)
+    return jsonify(locations_list), 200
      
 @location_bp.route("/", methods=["POST"])
 def create_location():
-    # Get the JSON data from the request
     data = request.get_json()
-
 
     if 'name' not in data:
         return jsonify({'error': 'The name field is required.'}), 400
@@ -27,6 +26,7 @@ def create_location():
         return jsonify({'error': 'Location with this name already exists.'}), 400
     
     new_location = Location(name=data['name'])
+    print(f"Creating new location {new_location.name}")
 
     db.session.add(new_location)
     db.session.commit()

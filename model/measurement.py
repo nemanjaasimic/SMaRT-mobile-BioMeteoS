@@ -10,7 +10,7 @@ class Measurement(db.Model):
     date = db.Column(db.Date, nullable=False)    
     time = db.Column(db.Time, nullable=False)    
     altitude = db.Column(db.Float(precision=2), default=100.0, nullable=False)
-    longitute = db.Column(db.String(), default="00° 00' 00.00\"", nullable=False)
+    longitude = db.Column(db.String(), default="00° 00' 00.00\"", nullable=False)
     latitude = db.Column(db.String(), default="00° 00' 00.00\"", nullable=False)
     temperature = db.Column(db.Float(precision=2), default=0.0, nullable=False)
     relative_humidity = db.Column(db.Float(precision=2), default=0.0, nullable=False)
@@ -28,7 +28,7 @@ class Measurement(db.Model):
         self.date = date        
         self.time = time        
         self.altitude = altitude
-        self.longidute = longitude
+        self.longitude = longitude
         self.latitude = latitude
         self.temperature = temperature
         self.relative_humidity = relative_humidity
