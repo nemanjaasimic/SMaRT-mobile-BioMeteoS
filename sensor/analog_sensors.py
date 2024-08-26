@@ -1,7 +1,7 @@
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_MCP3008
 import RPi.GPIO as GPIO
-import gpio_pinout
+import sensor.gpio_pinout as gpio_pinout
 import time
 
 SPI_PORT   = 0

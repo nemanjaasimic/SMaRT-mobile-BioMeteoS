@@ -4,6 +4,7 @@ from model.location import Location
 from apscheduler.triggers.interval import IntervalTrigger
 from service.collect_measurement import generate_measurement
 from scheduler import scheduler
+from sensor.data_fetcher import fetch_health_status_values
 import uuid
 
 measurement_bp = Blueprint('measurement', __name__, url_prefix='/measurements')
@@ -32,7 +33,8 @@ def start_scheduler():
             trigger='interval',
             seconds=interval_in_s,
             kwargs={
-                'location_id': uuid.UUID(location_id)} 
+                'location_id': uuid.UUID(location_id)
+            } 
         )
         print(f"Measuring job for location id: {location_id} scheduled on {interval_in_s}s interval")
         return jsonify({"message": "Measuring started"}), 200
@@ -125,4 +127,28 @@ def get_all_measurements():
     } for measurement in measurements]
 
     return jsonify(measurements_list), 200
-     
+
+@measurement_bp.route("/status", methods=["GET"])
+def get_sensor_status():
+    gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, limited_wind_speed_m_s, pm25, pm10, uv_intensity = fetch_health_status_values()
+
+    measurement_status = {
+        'date': gps_datetime.date(),
+        'time': gps_datetime.time().strftime('%H:%M:%S'),
+        'altitude': gps_altitude,
+        'longitude': gps_longitude,
+        'latitude': gps_latitude,
+        'temperature': temp,
+        'relative_humidity': humidity,
+        'globe_temperature': globe_temp,
+        'wind_speed': wind_speed_m_s,
+        'limited_wind_speed': limited_wind_speed_m_s,
+        'pm_2_5': pm25,
+        'pm_10': pm10,
+        'uv_b': uv_intensity
+    }
+
+    if None not in measurement_status.values():
+        return jsonify(measurement_status), 200
+    else:
+        return jsonify(measurement_status), 400

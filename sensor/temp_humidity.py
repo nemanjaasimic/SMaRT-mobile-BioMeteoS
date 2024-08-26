@@ -1,7 +1,7 @@
 # AM2301B DHT22 Temperature and Humidity Sensor
 
 import adafruit_dht
-from gpio_pinout import AM2301_DATA_PIN
+from sensor.gpio_pinout import AM2301_DATA_PIN
 import time
 
 

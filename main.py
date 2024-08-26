@@ -1,8 +1,8 @@
-from temp_humidity import get_temp_and_humidity_readings
-from globe_temp import find_ds18b20, read_globe_temperature
-from air_quality import read_air_quality_sensor
-from gps import get_gps_data
-from analog_sensors import get_wind_speed, get_uv_intensity
+from sensor.temp_humidity import get_temp_and_humidity_readings
+from sensor.globe_temp import find_ds18b20, read_globe_temperature
+from sensor.air_quality import read_air_quality_sensor
+from sensor.gps import get_gps_data
+from sensor.analog_sensors import get_wind_speed, get_uv_intensity
 import csv
 from datetime import datetime
 import time

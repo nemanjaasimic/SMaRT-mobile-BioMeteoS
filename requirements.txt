@@ -11,3 +11,10 @@ adafruit-mcp3008 == 1.0.2
 smbus2 == 0.4.3
 numpy == 2.0.0
 
+# Flask dependencies
+Flask == 3.0.3
+Flask-SQLAlchemy == 3.1.1
+psycopg2-binary == 2.9.9
+Flask-Migrate == 4.0.7
+requests == 2.32.3
+Flask-APScheduler == 1.13.1

@@ -1,8 +1,8 @@
-from temp_humidity import get_temp_and_humidity_readings
-from globe_temp import find_ds18b20, read_globe_temperature
-from air_quality import read_air_quality_sensor
-from gps import get_gps_data
-from analog_sensors import get_wind_speed, get_uv_intensity
+from sensor.temp_humidity import get_temp_and_humidity_readings
+from sensor.globe_temp import find_ds18b20, read_globe_temperature
+from sensor.air_quality import read_air_quality_sensor
+from sensor.gps import get_gps_data
+from sensor.analog_sensors import get_wind_speed, get_uv_intensity
 import csv
 from datetime import datetime
 import time
@@ -137,4 +137,46 @@ def debug():
     gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, limited_wind_speed_m_s, pm25, pm10, uv_intensity = fetch_values()
     print("Measurements completed.\nPlease take a look at the results below:")
     print_measured_values(gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, limited_wind_speed_m_s, pm25, pm10, uv_intensity)
+
+
+def fetch_health_status_values():
+    gps_latitude, gps_longitude, gps_altitude, gps_altitude_units, gps_datetime = None, None, None, None, None
+    try:
+        gps_latitude, gps_longitude, gps_altitude, gps_altitude_units, gps_datetime = get_gps_data()
+    except Exception as error:
+        print(f'Failed to retrieve GPS data. Message: {error.args[0]}.')
+
+    temp, humidity = None, None
+    try:
+        temp, humidity = get_temp_and_humidity_readings()
+    except Exception as error:
+        print(f'Failed to retrieve Temperature and Humidity data. Message: {error.args[0]}.')
+
+    wind_speed_m_s = None
+    try:
+        wind_speed_m_s = get_wind_speed()
+    except Exception as error:
+        print(f'Failed to retrieve Wind Speed data. Message: {error.args[0]}.')
+
+    uv_intensity = None
+    try:
+        uv_intensity = get_uv_intensity()
+    except Exception as error:
+        print(f'Failed to retrieve UV Intensity data. Message: {error.args[0]}.')
+
+    globe_temp = None
+    try:
+        globe_temp_sensor_name = find_ds18b20()
+        globe_temp = read_globe_temperature(globe_temp_sensor_name)
+    except Exception as error: 
+        print(f'Failed to retrieve Globe temp data. Message: {error.args[0]}.')
+
+    pm25, pm10 = None, None
+    try:
+        pm25, pm10 = read_air_quality_sensor()
+        # time.sleep(60)
+    except Exception as error:
+        print(f'Failed to retrieve Air Quality PM data. Message: {error.args[0]}.')
+    
+    return gps_datetime, gps_altitude, gps_altitude_units, gps_longitude, gps_latitude, temp, humidity, globe_temp, wind_speed_m_s, get_limited_wind_speed(wind_speed_m_s), pm25, pm10, uv_intensity
 
