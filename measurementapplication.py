@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from db_context import db
 from api import location_api, measurement_api
 from config import Config
@@ -12,7 +13,8 @@ def create_app():
         SECRET_KEY = "secret_key"
     )     
 
-    app.config.from_object(Config)      
+    app.config.from_object(Config)    
+    cors = CORS(app, resources={r"/*": {"origins": "*"}})  
 
     db.init_app(app)
 

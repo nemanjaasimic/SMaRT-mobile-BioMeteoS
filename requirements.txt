@@ -18,3 +18,4 @@ psycopg2-binary == 2.9.9
 Flask-Migrate == 4.0.7
 requests == 2.32.3
 Flask-APScheduler == 1.13.1
+Flask-Cors == 4.0.1
