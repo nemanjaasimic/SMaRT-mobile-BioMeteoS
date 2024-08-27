@@ -1,0 +1,69 @@
+/* Modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modal content */
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    max-width: 90%;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+/* Header within modal */
+.modal-content h2 {
+    margin-top: 0;
+}
+
+/* Labels within modal */
+.modal-content label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+/* Inputs within modal */
+.modal-content input {
+    width: calc(100% - 16px); /* Adjust width to account for padding */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* Buttons within modal */
+.modal-content button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px; /* Uniform margin for all buttons */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    width: calc(60% - 10px); /* Adjust width to fit two buttons in a row */
+}
+
+/* Button hover states */
+.modal-content button:hover {
+    background: #0056b3;
+}
+
+.modal-content button:last-child {
+    background: #6c757d;
+}
+
+.modal-content button:last-child:hover {
+    background: #5a6268;
+}

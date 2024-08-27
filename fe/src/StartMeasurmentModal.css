@@ -1,0 +1,64 @@
+
+.modal {
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: 1000; /* Ensure it is above other content */
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 90%; /* Responsive width */
+    width: 40%; /* Fixed width for better appearance */
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.modal-content label {
+    display: block;
+    margin: 15px 0 5px;
+}
+
+.modal-content select,
+.modal-content input {
+    width: calc(100% - 16px); /* Full width minus padding */
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal-content button {
+    background-color: #007bff; /* Blue background */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.modal-content button:last-child {
+    background-color: #6c757d; /* Gray background for Close button */
+}
+
+.modal-content button:last-child:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+}

@@ -1,0 +1,97 @@
+/* Container to center the table */
+.weather-table-container {
+    display: flex; /* Use Flexbox for centering */
+    justify-content: center; /* Center the table horizontally */
+    padding: 20px; /* Add some padding around the container */
+    margin-left: 5px; /* Margin on the left */
+    margin-right: 5px;
+    margin-top: -30px;
+}
+
+/* Table styling */
+.weather-table {
+    width: auto; /* Auto width to fit content */
+    max-width: 100%; /* Ensure it does not exceed the container width */
+    border-collapse: collapse;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Header styling */
+.weather-table th {
+    background-color: #218838; /* Green background */
+    color: black;
+    font-weight: bold;
+    font-size: x-small;
+    padding: 12px 5px;
+}
+
+/* Data cell styling */
+.weather-table th,
+.weather-table td {
+    padding: 12px 5px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden; /* Hide overflowed content */
+    text-overflow: ellipsis; /* Display ellipsis for overflowing text */
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    font-size: x-small;
+}
+
+/* Alternating row colors */
+.weather-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect for rows */
+.weather-table tr:hover {
+    background-color: #ddd;
+}
+
+/* Transition for hover effect */
+.weather-table tr {
+    transition: background-color 0.3s ease;
+}
+
+/* App.css */
+
+.button-group {
+    display: flex; /* Use Flexbox for layout */
+    justify-content: center; /* Center buttons horizontally */
+     margin: 5px;/* Space around the button group */
+}
+
+.square-button {
+    width: 150px; /* Width of the button */
+    height: 30px; /* Height of the button */
+    border: none; /* Remove border */
+    border-radius: 8px; /* Rounded corners (optional) */
+    font-size: 1rem; /* Font size */
+    color: white; /* Text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex; /* Flexbox for centering text */
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+    transition: background-color 0.3s; /* Smooth background color transition */
+    margin: 5px; /* Space between buttons */
+}
+
+/* Green background for Start button */
+.square-button.start {
+    background-color: #28a745; /* Green color */
+}
+
+.square-button.start:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Red background for Stop button */
+.square-button.stop {
+    background-color: #dc3545; /* Red color */
+}
+
+.square-button.stop:hover {
+    background-color: #c82333; /* Darker red on hover */
+}

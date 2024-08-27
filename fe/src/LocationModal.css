@@ -1,0 +1,64 @@
+/* src/components/LocationModal.css */
+.modal {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  .modal h2 {
+    color: #00796b;
+    margin-bottom: 20px;
+  }
+  
+  .location-select,
+  .location-new {
+    margin-bottom: 20px;
+  }
+  
+  .location-select label,
+  .location-new label {
+    font-size: 1em;
+  }
+  
+  .location-select select,
+  .location-new input {
+    padding: 8px;
+    border: 1px solid #b2dfdb;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 100%;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .modal-actions button {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-actions button:hover {
+    background-color: #388e3c;
+  }
+  
+  .modal-actions button.cancel {
+    background-color: #f44336; /* Red for cancel */
+  }
+  
+  .modal-actions button.cancel:hover {
+    background-color: #c62828; /* Darker red on hover */
+  }
+  
