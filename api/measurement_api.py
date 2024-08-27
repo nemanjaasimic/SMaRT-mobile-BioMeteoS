@@ -20,7 +20,7 @@ def start_scheduler():
     interval_in_s = data['interval_in_s']
 
     if not location_id:
-        return jsonify({"message": "location_id is required"}), 400
+        return jsonify({"message": "Location is required"}), 400
     
     existing_location = Location.query.filter_by(id=location_id).first()
     if existing_location is None:
@@ -122,8 +122,10 @@ def get_all_measurements():
 
     if sort_order == 'asc':
         query = query.order_by(asc(getattr(Measurement, sort_by)))
+        query = query.order_by(asc(getattr(Measurement, 'time')))
     elif sort_order == 'desc':
         query = query.order_by(desc(getattr(Measurement, sort_by)))
+        query = query.order_by(desc(getattr(Measurement, 'time')))
         
     measurements = query.paginate(page=page, per_page=size, error_out=False)
 
@@ -221,8 +223,10 @@ def get_all_measurements_exported():
 
     if sort_order == 'asc':
         query = query.order_by(asc(getattr(Measurement, sort_by)))
+        query = query.order_by(asc(getattr(Measurement, 'time')))
     elif sort_order == 'desc':
         query = query.order_by(desc(getattr(Measurement, sort_by)))
+        query = query.order_by(desc(getattr(Measurement, 'time')))
     
     measurements = query.all()
 
