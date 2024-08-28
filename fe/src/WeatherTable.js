@@ -9,7 +9,7 @@ function WeatherTable({ data }) {
 
   const handleStartClick = () => setShowStartModal(true);
   const handleStopClick = async () => {
-    const response = await fetch('http://192.168.0.114:5000/measurements/stop', { method: 'POST' });
+    const response = await fetch('/api/measurements/stop', { method: 'POST' });
     if (response.ok) {
       alert('Measurement stopped successfully.');
     } else {

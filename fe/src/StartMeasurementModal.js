@@ -9,7 +9,7 @@ function StartMeasurementModal({ show, onClose }) {
 
     useEffect(() => {
         if (show) {
-            fetch('http://192.168.0.114:5000/locations/')
+            fetch('/api/locations/')
                 .then(response => response.json())
                 .then(data => setLocations(data))
                 .catch(() => setError('Failed to load locations.'));
@@ -29,7 +29,7 @@ function StartMeasurementModal({ show, onClose }) {
         setError(''); // Clear previous errors
 
         try {
-            const response = await fetch('http://192.168.0.114:5000/measurements/start', {
+            const response = await fetch('/api/measurements/start', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ location_id: selectedLocation, interval_in_s: interval }),

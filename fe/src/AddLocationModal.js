@@ -5,7 +5,7 @@ function AddLocationModal({ show, onClose }) {
     const [locationName, setLocationName] = useState('');
 
     const handleAddLocation = async () => {
-        const response = await fetch('http://192.168.0.114:5000/locations/', {
+        const response = await fetch('/api/locations/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

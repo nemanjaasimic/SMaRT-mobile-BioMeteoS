@@ -11,7 +11,7 @@ from io import StringIO
 import csv
 import uuid
 
-measurement_bp = Blueprint('measurement', __name__, url_prefix='/measurements')
+measurement_bp = Blueprint('measurement', __name__, url_prefix='/api/measurements')
 
 @measurement_bp.route("/start", methods=["POST"])
 def start_scheduler():

@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from model.location import db, Location
 
 
-location_bp = Blueprint('location', __name__, url_prefix='/locations')
+location_bp = Blueprint('location', __name__, url_prefix='/api/locations')
 
 
 @location_bp.route("/", methods=["GET"])

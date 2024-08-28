@@ -58,7 +58,7 @@ function App() {
 
     const query = params.toString() ? `?${params.toString()}` : '';
 
-    const response = await fetch(`http://192.168.0.114:5000/measurements/${query}`);
+    const response = await fetch(`/api/measurements/${query}`);
 
     const result = await response.json();
     setTotalPages(result.total); // Assuming your backend returns total pages
@@ -103,7 +103,7 @@ function App() {
 
     // Construct the full export URL with query parameters
     const query = params.toString() ? `?${params.toString()}` : '';
-    const exportUrl = `http://192.168.0.114:5000/measurements/export${query}`;
+    const exportUrl = `/api/measurements/export${query}`;
 
     // Fetch and handle the CSV export
     const response = await fetch(exportUrl);
@@ -123,7 +123,7 @@ function App() {
     setLoading(true); // Show loading
 
     try {
-      const response = await fetch('http://192.168.0.114:5000/measurements/status');
+      const response = await fetch('/api/measurements/status');
       const result = await response.json();
 
       if (response.ok) {
@@ -151,7 +151,7 @@ function App() {
     // Fetch location data
     const fetchLocations = async () => {
       try {
-        const response = await fetch('http://192.168.0.114:5000/locations/');
+        const response = await fetch('/api/locations/');
         const result = await response.json();
         setLocations(result); // Assuming the response is an array of location objects
       } catch (error) {

@@ -14,7 +14,7 @@ def create_app():
     )     
 
     app.config.from_object(Config)    
-    cors = CORS(app, resources={r"/*": {"origins": "*"}})  
+    cors = CORS(app, resources={r"/api/*": {"origins": "*"}}) 
 
     db.init_app(app)
 
