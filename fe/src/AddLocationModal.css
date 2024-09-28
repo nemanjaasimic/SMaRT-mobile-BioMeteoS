@@ -1,3 +1,4 @@
+
 /* Modal overlay */
 .modal-overlay {
     position: fixed;
@@ -14,32 +15,68 @@
 /* Modal content */
 .modal-content {
     background: white;
-    padding: 20px;
+    padding: 30px; /* Increased padding for a bigger feel */
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    max-width: 90%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 400px; /* Set a fixed width for the modal */
+    max-width: 90%; /* Responsive max width */
     box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 /* Header within modal */
 .modal-content h2 {
     margin-top: 0;
+    font-size: 24px; /* Increased header size */
+    color: #333; /* Darker color for better readability */
+}
+
+/* Error message */
+.error-message {
+    color: red;
+    margin-bottom: 10px;
 }
 
 /* Labels within modal */
 .modal-content label {
     display: block;
     margin: 10px 0 5px;
+    color: #555; /* Slightly muted color */
 }
 
 /* Inputs within modal */
 .modal-content input {
     width: calc(100% - 16px); /* Adjust width to account for padding */
-    padding: 8px;
+    padding: 10px; /* More padding */
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 10px;
+}
+
+/* Location list styling */
+.location-list {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 150px; /* Limit height */
+    overflow-y: auto; /* Enable scrolling */
+    margin-bottom: 10px;
+}
+
+.location-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.location-item:last-child {
+    border-bottom: none; /* Remove last border */
+}
+
+/* Trash icon */
+.trash-icon {
+    color: red;
+    cursor: pointer;
 }
 
 /* Buttons within modal */
@@ -50,9 +87,8 @@
     padding: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
-    margin: 5px; /* Uniform margin for all buttons */
-    box-sizing: border-box; /* Ensure padding is included in the width */
-    width: calc(60% - 10px); /* Adjust width to fit two buttons in a row */
+    margin: 5px 0; /* Uniform margin for all buttons */
+    width: 100%; /* Full width buttons */
 }
 
 /* Button hover states */

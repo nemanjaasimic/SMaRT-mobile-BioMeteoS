@@ -14,7 +14,7 @@ const LocationModal = ({ isOpen, onClose }) => {
 
   const fetchLocations = async () => {
     // Fetch locations from backend
-    const response = await fetch('/api/locations'); // Replace with your backend endpoint
+    const response = await fetch('/api/locations'); 
     const data = await response.json();
     setLocations(data);
   };

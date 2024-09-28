@@ -110,8 +110,9 @@ function App() {
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
+    const filename = 'measurements_' + (new Date()).toISOString() + ".csv";
     a.href = url;
-    a.download = 'weather_data.csv';
+    a.download = filename;
     a.click();
     window.URL.revokeObjectURL(url);
   };
@@ -207,22 +208,23 @@ function App() {
         </div>
         <div className="filter-group">
           <label>Location</label>
-          <select style={{ marginTop: '5px' }} value={locationId} onChange={(e) => setLocationId(e.target.value)}>
+          <select style={{ height: '28px', borderRadius: '4px', borderColor: '#ccc', marginBottom: '5px', padding: '5px'}} value={locationId} onChange={(e) => setLocationId(e.target.value)}>
             <option value="">Select Location</option>
             {locations.map(location => (
               <option key={location.id} value={location.id}>{location.name}</option>
             ))}
           </select>
-          <button style={{ marginTop: '30px' }} className="apply-filter-button" onClick={handleApplyFilter}>Apply Filter</button>
+          <button style={{ marginTop: '20px' }} className="apply-filter-button" onClick={handleApplyFilter}>Apply Filter</button>
         </div>
         <div className="filter-group">
-          <button onClick={() => setShowAddLocationModal(true)}>Location</button>
-          <button style={{ marginTop: '30px' }} onClick={handleExportToCSV} className="export-button">Export</button>
+          <button style={{ marginTop: '20px' }} onClick={() => setShowAddLocationModal(true)}>Location</button>
+          <button style={{ marginTop: '15px' }} onClick={handleExportToCSV} className="export-button">Export</button>
         </div>
         <AddLocationModal show={showAddLocationModal} onClose={() => setShowAddLocationModal(false)} />
       </div>
       <WeatherTable
         data={data}
+        fetchData={fetchData}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
         page={page} // Add this
@@ -249,6 +251,8 @@ function App() {
                       <p>Time: {status.data.time}</p>
                       <p>Latitude: {status.data.latitude}</p>
                       <p>Longitude: {status.data.longitude}</p>
+                      <p>Temperature: {status.data.temperature} °C</p>
+                      <p>Relative Humidity: {status.data.relative_humidity} %</p>
                       <p>Globe Temperature: {status.data.globe_temperature} °C</p>
                       <p>Limited Wind Speed: {status.data.limited_wind_speed} m/s</p>
                       <p>PM 2.5: {status.data.pm_2_5} ppm</p>
