@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, Response
 from sqlalchemy import asc, desc
-from model.measurement import Measurement
+from model.measurement import Measurement, db
 from model.location import Location
 from apscheduler.triggers.interval import IntervalTrigger
 from service.collect_measurement import generate_measurement
@@ -24,7 +24,7 @@ def start_scheduler():
     
     existing_location = Location.query.filter_by(id=location_id).first()
     if existing_location is None:
-        return jsonify({'error': 'This location does not exist.'}), 400
+        return jsonify({'message': 'This location does not exist.'}), 400
     
     if not interval_in_s:
         interval_in_s = 90
@@ -258,6 +258,23 @@ def get_all_measurements_exported():
     output.headers['Content-Disposition'] = f'attachment; filename=measurements_{today_date}.csv'
     output.status_code = 200
     return output
+
+@measurement_bp.route('/', methods=['DELETE'])
+def delete_multiple_measurements():
+    measurement_ids = request.json.get('ids')  
+    if not measurement_ids or not isinstance(measurement_ids, list):
+        return jsonify({"message": "Invalid input. Provide a list of measurement IDs."}), 400
+
+    measurements_to_delete = Measurement.query.filter(Measurement.id.in_(measurement_ids)).all()
+    
+    if not measurements_to_delete:
+        return jsonify({"message": "No measurements found for the provided IDs."}), 404
+
+    for measurement in measurements_to_delete:
+        db.session.delete(measurement)
+    db.session.commit()
+
+    return jsonify({"message": "Measurements deleted successfully.", "deleted_ids": [m.id for m in measurements_to_delete]}), 200
 
 @measurement_bp.route("/status", methods=["GET"])
 def get_sensor_status():
